@@ -13,7 +13,7 @@ public class Main {
         var elem = document.selectXpath("//a[starts-with(@href,'/internet-magaziny?page=')]");
 
         HashMap<String, String> reviewsList = new HashMap<>();
-
+        int count = 1;
         for (int i = 1; i <= elem.size() - 2; i++) {
             document = Jsoup.connect("https://nanegative.ru/internet-magaziny?page=" + i).get();
             var reviews = document.selectXpath("//a[contains(text(),'Отзывы')]");
@@ -25,7 +25,8 @@ public class Main {
         }
         for (String key : reviewsList.keySet()) {
             String value = reviewsList.get(key);
-            System.out.println(key);
+            System.out.println(count + " " + key);
+            count++;
         }
 
         System.out.println("C какого сайта хотите получить отзывы?");
@@ -43,8 +44,8 @@ public class Main {
                     System.out.println("Нет отзывов на сайте");
                 } else {
                     for (int j = 0; j < reviews.size(); j++) {
-                        Element otziv = reviews.get(j);
-                        String str = otziv.text();
+                        Element response = reviews.get(j);
+                        String str = response.text();
                         System.out.println(str);
                     }
                 }
